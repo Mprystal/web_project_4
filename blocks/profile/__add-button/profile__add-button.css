@@ -4,6 +4,7 @@
   background-color: #000000;
   border: 2px solid #ffffff;
   margin: 35px auto 0 auto;
+  cursor: pointer;
 }
 
 .profile__add-button:hover {

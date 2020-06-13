@@ -7,6 +7,7 @@
   position: fixed;
   top: 148px;
   left: 67.11%;
+  cursor: pointer;
 }
 
 .popup__button:hover {
