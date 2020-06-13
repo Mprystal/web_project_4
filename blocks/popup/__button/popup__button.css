@@ -1,0 +1,14 @@
+.popup__button {
+  background: none;
+  width: 40.7px;
+  height: 40.7px;
+  border: none;
+  padding: 0;
+  position: fixed;
+  top: 148px;
+  left: 67.11%;
+}
+
+.popup__button:hover {
+  opacity: 0.6;
+}
