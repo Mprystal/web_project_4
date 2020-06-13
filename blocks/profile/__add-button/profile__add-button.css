@@ -3,14 +3,14 @@
   height: 50px;
   background-color: #000000;
   border: 2px solid #ffffff;
-  margin-top: 35px;
+  margin: 35px auto 0 auto;
 }
 
 .profile__add-button:hover {
   opacity: 0.6;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 450px) {
   .profile__add-button {
     width: 100%;
     margin-top: 36px;

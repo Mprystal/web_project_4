@@ -5,7 +5,7 @@
   background-color: #000000;
   justify-content: center;
   border: 1px solid #ffffff;
-  margin-top: 19px;
+  margin: 19px auto 0 auto;
 }
 
 .profile__edit-button:hover {

@@ -12,13 +12,13 @@
   display: flex;
   flex-wrap: wrap;
   max-width: 882px;
-  margin: 40px 0 51px 199px;
+  margin: 40px auto 51px auto;
   justify-content: space-between;
 }
 
 @media screen and (max-width: 320px) {
   .profile {
     max-width: 100%;
-    margin: 42px 19px 36px 19px;
+    margin: 42px auto 36px auto;
   }
 }

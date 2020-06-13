@@ -5,8 +5,9 @@
 
 .element {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-columns: repeat(3, 1fr); */
   grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
   grid-column-gap: 18px;
   grid-row-gap: 21px;
   margin: 0;
