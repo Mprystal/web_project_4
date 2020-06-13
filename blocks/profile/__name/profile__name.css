@@ -4,12 +4,17 @@
   color: #ffffff;
   margin: 0 24px 0 0;
   font-weight: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 375px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 450px) {
   .profile__name {
     font-size: 22px;
     line-height: 2.54;
     margin-right: 12px;
+    max-width: 215px;
   }
 }
