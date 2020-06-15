@@ -1,5 +1,5 @@
 .popup__button {
-  background: url(/images/close.svg) no-repeat;
+  background: url(../../../images/close.svg) no-repeat;
   width: 40.7px;
   height: 40.7px;
   border: none;
