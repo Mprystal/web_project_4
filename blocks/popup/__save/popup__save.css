@@ -16,3 +16,9 @@
   opacity: 0.6;
   transition: ease-in 0.2s;
 }
+
+@media screen and (max-width: 480px) {
+  .popup__save {
+    width: 210px;
+  }
+}
