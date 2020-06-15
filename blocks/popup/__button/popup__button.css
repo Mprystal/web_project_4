@@ -12,4 +12,5 @@
 
 .popup__button:hover {
   opacity: 0.6;
+  transition: ease-in 0.2s;
 }
