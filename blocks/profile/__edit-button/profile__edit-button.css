@@ -1,9 +1,7 @@
 .profile__edit-button {
+  background: url(/images/pen.svg) no-repeat center;
   height: 24px;
   width: 24px;
-  display: flex;
-  background-color: #000000;
-  justify-content: center;
   border: 1px solid #ffffff;
   margin: 19px auto 0 auto;
   cursor: pointer;

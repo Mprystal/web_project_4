@@ -5,7 +5,6 @@
 @import url(./__user-list/popup__user-list.css);
 @import url(./__user-input/popup__user-input.css);
 @import url(./__button/popup__button.css);
-@import url(./__button-img/popup__button-img.css);
 
 .popup {
   top: 0;
