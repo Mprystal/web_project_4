@@ -8,31 +8,33 @@
   </head>
   <body class="page">
     <div class="popup">
-      <button class="popup__button" type="button"></button>
-      <form action="#" class="popup__container">
-        <h3 class="popup__header">Edit profile</h3>
-        <ul class="popup__user-card">
-          <li class="popup__user-list">
-            <input
-              class="popup__user-input popup__user-input_type_name"
-              value="Jacques Cousteau"
-              type="text"
-              id="name"
-              name="user_name"
-            />
-          </li>
-          <li class="popup__user-list">
-            <input
-              class="popup__user-input popup__user-input_type_about"
-              value="Explorer"
-              type="text"
-              id="about"
-              name="user_about"
-            />
-          </li>
-        </ul>
-        <button type="submit" class="popup__save">Save</button>
-      </form>
+      <div class="popup__container">
+        <button class="popup__button" type="button"></button>
+        <form action="#" class="popup__form">
+          <h3 class="popup__header">Edit profile</h3>
+          <ul class="popup__user-card">
+            <li class="popup__user-list">
+              <input
+                class="popup__user-input popup__user-input_type_name"
+                value="Jacques Cousteau"
+                type="text"
+                id="name"
+                name="user_name"
+              />
+            </li>
+            <li class="popup__user-list">
+              <input
+                class="popup__user-input popup__user-input_type_about"
+                value="Explorer"
+                type="text"
+                id="about"
+                name="user_about"
+              />
+            </li>
+          </ul>
+          <button type="submit" class="popup__save">Save</button>
+        </form>
+      </div>
     </div>
     <header class="header">
       <img src="./images/Vectorlogo.svg" alt="Logo" class="header__logo" />
@@ -63,11 +65,8 @@
             />
 
             <h2 class="element__card-heading">Yosemite Valley</h2>
-            <img
-              src="./images/Vectorheart.svg"
-              alt="heart"
-              class="element__card-heart"
-            />
+
+            <button class="element__card-heart" type="button"></button>
           </li>
           <li class="element__card">
             <img
@@ -77,11 +76,7 @@
             />
 
             <h2 class="element__card-heading">Lake Louise</h2>
-            <img
-              src="./images/Vectorheart.svg"
-              alt="heart"
-              class="element__card-heart"
-            />
+            <button class="element__card-heart" type="button"></button>
           </li>
           <li class="element__card">
             <img
@@ -91,11 +86,7 @@
             />
 
             <h2 class="element__card-heading">Bald Mountains</h2>
-            <img
-              src="./images/Vectorheart.svg"
-              alt="heart"
-              class="element__card-heart"
-            />
+            <button class="element__card-heart" type="button"></button>
           </li>
           <li class="element__card">
             <img
@@ -105,11 +96,7 @@
             />
 
             <h2 class="element__card-heading">Latemar</h2>
-            <img
-              src="./images/Vectorheart.svg"
-              alt="heart"
-              class="element__card-heart"
-            />
+            <button class="element__card-heart" type="button"></button>
           </li>
           <li class="element__card">
             <img
@@ -119,11 +106,7 @@
             />
 
             <h2 class="element__card-heading">Vanois National Park</h2>
-            <img
-              src="./images/Vectorheart.svg"
-              alt="heart"
-              class="element__card-heart"
-            />
+            <button class="element__card-heart" type="button"></button>
           </li>
           <li class="element__card">
             <img
@@ -133,11 +116,7 @@
             />
 
             <h2 class="element__card-heading">Lago di Braies</h2>
-            <img
-              src="./images/Vectorheart.svg"
-              alt="heart"
-              class="element__card-heart"
-            />
+            <button class="element__card-heart" type="button"></button>
           </li>
         </ul>
       </section>

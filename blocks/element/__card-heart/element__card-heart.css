@@ -1,5 +1,9 @@
 .element__card-heart {
+  background: url(/images/Vectorheart.svg) no-repeat;
   position: absolute;
   bottom: 30px;
   right: 18px;
+  width: 21px;
+  height: 18px;
+  border: none;
 }
