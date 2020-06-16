@@ -1,4 +1,4 @@
-.popup__button {
+.popup__close-button {
   background: url(../../../images/close.svg) no-repeat;
   width: 40.7px;
   height: 40.7px;
@@ -7,7 +7,7 @@
   cursor: pointer;
 }
 
-.popup__button:hover {
+.popup__close-button:hover {
   opacity: 0.6;
   transition: ease-in 0.2s;
 }
