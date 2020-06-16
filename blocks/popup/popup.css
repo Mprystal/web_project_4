@@ -19,5 +19,5 @@
 }
 
 .popup_opened {
-  display: block;
+  display: flex;
 }

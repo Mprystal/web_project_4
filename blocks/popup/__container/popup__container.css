@@ -1,8 +1,6 @@
 .popup__container {
-  position: fixed;
-  top: 195px;
-  right: 37%;
   display: flex;
+  margin: auto;
 }
 
 @media screen and (max-width: 1280px) {
