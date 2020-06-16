@@ -1,5 +1,5 @@
 .profile__img {
-  background: url(/images/imageprofileGuy.jpg) no-repeat;
+  background: url(../../../images/imageprofileGuy.jpg) no-repeat;
   background-size: contain;
   border-radius: 50%;
   width: 120px;
