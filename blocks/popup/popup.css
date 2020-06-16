@@ -17,7 +17,3 @@
   z-index: 10;
   display: none;
 }
-
-.popup_opened {
-  display: flex;
-}
