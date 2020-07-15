@@ -27,69 +27,7 @@
         <button class="profile__add-button" type="button"></button>
       </section>
       <section class="elements">
-        <ul class="element">
-          <li class="element__card">
-            <img
-              src="./images/kirill-pershin-1088404-unsplashYosemite.jpg"
-              alt="Picture of place"
-              class="element__card-img"
-            />
-
-            <h2 class="element__card-heading">Yosemite Valley</h2>
-
-            <button class="element__card-heart" type="button"></button>
-          </li>
-          <li class="element__card">
-            <img
-              src="./images/kirill-pershin-1404681-unsplashlake.png"
-              alt="Picture of place"
-              class="element__card-img"
-            />
-
-            <h2 class="element__card-heading">Lake Louise</h2>
-            <button class="element__card-heart" type="button"></button>
-          </li>
-          <li class="element__card">
-            <img
-              src="./images/kirill-pershin-1556355-unsplashbald.png"
-              alt="Picture of place"
-              class="element__card-img"
-            />
-
-            <h2 class="element__card-heading">Bald Mountains</h2>
-            <button class="element__card-heart" type="button"></button>
-          </li>
-          <li class="element__card">
-            <img
-              src="./images/kirill-pershin-1404681-unsplashlate.png"
-              alt="Picture of place"
-              class="element__card-img"
-            />
-
-            <h2 class="element__card-heading">Latemar</h2>
-            <button class="element__card-heart" type="button"></button>
-          </li>
-          <li class="element__card">
-            <img
-              src="./images/kirill-pershin-1556355-unsplashvan.png"
-              alt="Picture of place"
-              class="element__card-img"
-            />
-
-            <h2 class="element__card-heading">Vanois National Park</h2>
-            <button class="element__card-heart" type="button"></button>
-          </li>
-          <li class="element__card">
-            <img
-              src="./images/kirill-pershin-1088404-unsplashlago.png"
-              alt="Picture of place"
-              class="element__card-img"
-            />
-
-            <h2 class="element__card-heading">Lago di Braies</h2>
-            <button class="element__card-heart" type="button"></button>
-          </li>
-        </ul>
+        <ul class="element"></ul>
       </section>
     </main>
     <footer class="footer">
@@ -97,7 +35,7 @@
         &copy; 2020 Around The U.S.
       </p>
     </footer>
-    <div class="popup">
+    <div class="popup popop_type_edit-profile">
       <div class="popup__container">
         <form action="#" class="popup__form">
           <h3 class="popup__header">Edit profile</h3>
@@ -126,6 +64,54 @@
         <button class="popup__close-button" type="button"></button>
       </div>
     </div>
+    <div class="popup popop_type_add-card">
+      <div class="popup__container">
+        <form action="#" class="popup__form popup__add-form">
+          <h3 class="popup__header">New Place</h3>
+          <ul class="popup__user-card">
+            <li class="popup__user-list">
+              <input
+                class="popup__user-input popup__user-input_card-heading"
+                type="text"
+                name="name"
+                placeholder="Title"
+              />
+            </li>
+            <li class="popup__user-list">
+              <input
+                class="popup__user-input popup__user-input_url"
+                type="url"
+                name="link"
+                placeholder="Image link"
+              />
+            </li>
+          </ul>
+          <button type="submit" class="popup__save">Create</button>
+        </form>
+        <button class="popup__close-button" type="button"></button>
+      </div>
+    </div>
+    <div class="popup_theme_trans popop_type_image">
+      <div class="popup__container">
+        <figure class="popup_type_image-fig">
+          <img class="popup_type_image-figimg" src="" alt="" />
+          <figcaption class="popup_type_image-figcap"></figcaption>
+        </figure>
+
+        <button class="popup__close-button" type="button"></button>
+      </div>
+    </div>
+    <template class="element__card-template">
+      <li class="element__card">
+        <button class="element__card-remove" type="button"></button>
+
+        <div class="element__card-img"></div>
+
+        <h2 class="element__card-heading">Yosemite Valley</h2>
+
+        <button class="element__card-heart" type="button"></button>
+      </li>
+    </template>
     <script src="script.js"></script>
   </body>
 </html>

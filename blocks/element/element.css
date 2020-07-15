@@ -1,7 +1,9 @@
 @import url(./__card/element__card.css);
 @import url(./__card-img/element__card-img.css);
 @import url(./__card-heading/element__card-heading.css);
+/* @import url(./__card-heart/_active/element__card-heart_active.css); this isnt working... */
 @import url(./__card-heart/element__card-heart.css);
+@import url(./__card-remove/element__card-remove.css);
 
 .element {
   display: grid;

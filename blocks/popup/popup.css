@@ -15,5 +15,8 @@
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   z-index: 10;
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s ease-in;
+  display: flex;
 }
