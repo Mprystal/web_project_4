@@ -6,9 +6,5 @@
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/footer/footer.css);
-@import url(../blocks/popup/_theme_trans/popup_theme_trans.css);
-@import url(../blocks/popup/_type_image-fig/popup_type_image-fig.css);
-@import url(../blocks/popup/_type_image-figimg/popup_type_image-figimg.css);
-@import url(../blocks/popup/_type_image-figcap/popup_type_image-figcap.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);

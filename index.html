@@ -17,14 +17,22 @@
           <div class="profile__info">
             <div class="profile__edit">
               <h1 class="profile__name">Jacques Cousteau</h1>
-              <button class="profile__edit-button" type="button"></button>
+              <button
+                class="profile__edit-button"
+                aria-label="Edit profile button"
+                type="button"
+              ></button>
             </div>
 
             <p class="profile__occupation">Explorer</p>
           </div>
         </div>
 
-        <button class="profile__add-button" type="button"></button>
+        <button
+          class="profile__add-button"
+          aria-label="Add profile button"
+          type="button"
+        ></button>
       </section>
       <section class="elements">
         <ul class="element"></ul>
@@ -35,7 +43,7 @@
         &copy; 2020 Around The U.S.
       </p>
     </footer>
-    <div class="popup popop_type_edit-profile">
+    <div class="popup popup_type_edit-profile">
       <div class="popup__container">
         <form action="#" class="popup__form">
           <h3 class="popup__header">Edit profile</h3>
@@ -61,10 +69,14 @@
           </ul>
           <button type="submit" class="popup__save">Save</button>
         </form>
-        <button class="popup__close-button" type="button"></button>
+        <button
+          class="popup__close-button"
+          aria-label="Close popup button"
+          type="button"
+        ></button>
       </div>
     </div>
-    <div class="popup popop_type_add-card">
+    <div class="popup popup_type_add-card">
       <div class="popup__container">
         <form action="#" class="popup__form popup__add-form">
           <h3 class="popup__header">New Place</h3>
@@ -88,28 +100,44 @@
           </ul>
           <button type="submit" class="popup__save">Create</button>
         </form>
-        <button class="popup__close-button" type="button"></button>
+        <button
+          class="popup__close-button"
+          aria-label="Close popup button"
+          type="button"
+        ></button>
       </div>
     </div>
-    <div class="popup_theme_trans popop_type_image">
+    <div class="popup popup_theme_trans popup_type_image">
       <div class="popup__container">
-        <figure class="popup_type_image-fig">
-          <img class="popup_type_image-figimg" src="" alt="" />
-          <figcaption class="popup_type_image-figcap"></figcaption>
+        <figure class="popup__fig">
+          <img class="popup__figimg" src="" alt="" />
+          <figcaption class="popup__figcap"></figcaption>
         </figure>
 
-        <button class="popup__close-button" type="button"></button>
+        <button
+          class="popup__close-button"
+          aria-label="Close popup button"
+          type="button"
+        ></button>
       </div>
     </div>
     <template class="element__card-template">
       <li class="element__card">
-        <button class="element__card-remove" type="button"></button>
+        <button
+          class="element__card-remove"
+          aria-label="Remove card button"
+          type="button"
+        ></button>
 
         <div class="element__card-img"></div>
 
         <h2 class="element__card-heading">Yosemite Valley</h2>
 
-        <button class="element__card-heart" type="button"></button>
+        <button
+          class="element__card-heart"
+          aria-label="Like this card button"
+          type="button"
+        ></button>
       </li>
     </template>
     <script src="script.js"></script>
