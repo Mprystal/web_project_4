@@ -1,3 +1,4 @@
+@import url(./_underlined/popup__user-list_underlined.css);
 .popup__user-list {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   margin-right: 36px;

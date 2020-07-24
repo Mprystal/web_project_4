@@ -10,6 +10,7 @@
 @import url(./__fig/popup__fig.css);
 @import url(./__figimg/popup__figimg.css);
 @import url(./__figcap/popup__figcap.css);
+@import url(./__error/popup__error.css);
 
 .popup {
   top: 0;

@@ -50,24 +50,36 @@
           <ul class="popup__user-card">
             <li class="popup__user-list">
               <input
+                id="profile-name"
                 class="popup__user-input popup__user-input_type_name"
                 value="Jacques Cousteau"
                 type="text"
                 id="name"
                 name="user_name"
+                required
+                minlength="2"
+                maxlength="40"
               />
             </li>
+            <span id="profile-name-error" class="popup__error"></span>
             <li class="popup__user-list">
               <input
+                id="profile-about"
                 class="popup__user-input popup__user-input_type_about"
                 value="Explorer"
                 type="text"
                 id="about"
                 name="user_about"
+                required
+                minlength="2"
+                maxlength="200"
               />
             </li>
+            <span id="profile-about-error" class="popup__error"></span>
           </ul>
-          <button type="submit" class="popup__save">Save</button>
+          <button type="submit" class="popup__save popup__save_disabled">
+            Save
+          </button>
         </form>
         <button
           class="popup__close-button"
@@ -83,22 +95,32 @@
           <ul class="popup__user-card">
             <li class="popup__user-list">
               <input
+                id="card-title"
                 class="popup__user-input popup__user-input_card-heading"
                 type="text"
                 name="name"
                 placeholder="Title"
+                required
+                minlength="1"
+                maxlength="30"
               />
             </li>
+            <span id="card-title-error" class="popup__error"></span>
             <li class="popup__user-list">
               <input
+                id="card-url"
                 class="popup__user-input popup__user-input_url"
                 type="url"
                 name="link"
                 placeholder="Image link"
+                required
               />
             </li>
+            <span id="card-url-error" class="popup__error"></span>
           </ul>
-          <button type="submit" class="popup__save">Create</button>
+          <button type="submit" class="popup__save popup__save_disabled">
+            Create
+          </button>
         </form>
         <button
           class="popup__close-button"
@@ -140,6 +162,7 @@
         ></button>
       </li>
     </template>
-    <script src="script.js"></script>
+    <script src="./scripts/validation.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
