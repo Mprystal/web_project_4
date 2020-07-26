@@ -22,6 +22,8 @@ const addCardPopupButton = document.querySelector(".profile__add-button");
 const imageFigImg = document.querySelector(".popup__figimg");
 const imageFigCap = document.querySelector(".popup__figcap");
 
+const popupOpen = document.querySelector(".popup__opened");
+
 addCardPopupButton.addEventListener("click", () => {
   /// toggle popup
   togglePopup(addCardPopup);
@@ -136,4 +138,28 @@ const renderCard = (data) => {
 
 initialCards.forEach((data) => {
   renderCard(data);
+});
+
+const closePopup = (popupT) => {
+  popupT.classList.remove("popup_opened");
+};
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    closePopup(addCardPopup);
+    closePopup(editProfilePopup);
+    closePopup(imagePopup);
+  }
+});
+
+const popupOverlay = [...document.querySelectorAll(".popup")];
+
+popupOverlay.forEach((element) => {
+  element.addEventListener("click", function (e) {
+    if (e.target.classList.contains("popup_opened")) {
+      closePopup(addCardPopup);
+      closePopup(editProfilePopup);
+      closePopup(imagePopup);
+    }
+  });
 });
