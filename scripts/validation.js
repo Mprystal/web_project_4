@@ -3,7 +3,7 @@ function showErrorMessage(
   form,
   { errorClass, inputErrorClass, underlineClass, ...rest }
 ) {
-  const error = document.querySelector("#" + input.id + "-error");
+  const error = document.querySelector(`#${input.id}-error`);
 
   error.textContent = input.validationMessage;
 
@@ -17,7 +17,7 @@ function hideErrorMessage(
   form,
   { errorClass, inputErrorClass, underlineClass, ...rest }
 ) {
-  const error = document.querySelector("#" + input.id + "-error");
+  const error = document.querySelector(`#${input.id}-error`);
   error.textContent = "";
 
   error.classList.remove(errorClass);

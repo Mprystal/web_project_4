@@ -2,8 +2,5 @@
   color: red;
   font-size: 12px;
   line-height: 1.25;
-}
-
-.popup__error_visible:first-of-type {
-  margin-bottom: 13px;
+  margin-bottom: 5px;
 }

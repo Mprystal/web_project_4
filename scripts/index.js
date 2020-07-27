@@ -144,7 +144,7 @@ const closePopup = (popupT) => {
   popupT.classList.remove("popup_opened");
 };
 
-document.addEventListener("keydown", function (e) {
+document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closePopup(addCardPopup);
     closePopup(editProfilePopup);
@@ -155,7 +155,7 @@ document.addEventListener("keydown", function (e) {
 const popupOverlay = [...document.querySelectorAll(".popup")];
 
 popupOverlay.forEach((element) => {
-  element.addEventListener("click", function (e) {
+  element.addEventListener("click", (e) => {
     if (e.target.classList.contains("popup_opened")) {
       closePopup(addCardPopup);
       closePopup(editProfilePopup);
