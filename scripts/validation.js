@@ -11,6 +11,7 @@ function showErrorMessage(
   input.classList.add(inputErrorClass);
   input.closest("li").classList.add(underlineClass);
 }
+//"Add underline to <input> element, not to it container" does not work with my html. Maksim Kulichenko => "... due to how your input is currently structured in HTML it can't be easily underlined"
 
 function hideErrorMessage(
   input,
