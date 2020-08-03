@@ -9,9 +9,7 @@ function showErrorMessage(
 
   error.classList.add(errorClass);
   input.classList.add(inputErrorClass);
-  input.closest("li").classList.add(underlineClass);
 }
-//"Add underline to <input> element, not to it container" does not work with my html. Maksim Kulichenko => "... due to how your input is currently structured in HTML it can't be easily underlined"
 
 function hideErrorMessage(
   input,
@@ -23,7 +21,6 @@ function hideErrorMessage(
 
   error.classList.remove(errorClass);
   input.classList.remove(inputErrorClass);
-  input.closest("li").classList.remove(underlineClass);
 }
 
 function checkInputValidity(input, form, rest) {
@@ -74,5 +71,4 @@ enableValidation({
   inactiveButtonClass: "popup__save_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
-  underlineClass: "popup__user-list_underlined",
 });
