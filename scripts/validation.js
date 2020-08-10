@@ -1,7 +1,7 @@
 function showErrorMessage(
   input,
   form,
-  { errorClass, inputErrorClass, underlineClass, ...rest }
+  { errorClass, inputErrorClass, ...rest }
 ) {
   const error = document.querySelector(`#${input.id}-error`);
 
@@ -14,7 +14,7 @@ function showErrorMessage(
 function hideErrorMessage(
   input,
   form,
-  { errorClass, inputErrorClass, underlineClass, ...rest }
+  { errorClass, inputErrorClass, ...rest }
 ) {
   const error = document.querySelector(`#${input.id}-error`);
   error.textContent = "";
