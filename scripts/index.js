@@ -1,12 +1,29 @@
+import FormValidator from "./FormValidator.js";
+
+const editForm = document.querySelector(".popup__form");
+const addForm = document.querySelector(".popup__add-form");
+
+const defaultConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__user-input",
+  submitButtonSelector: ".popup__save",
+  inactiveButtonClass: "popup__save_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+const editFormValidator = new FormValidator(defaultConfig, editForm);
+const addFormValidator = new FormValidator(defaultConfig, addForm);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+
 const editButton = document.querySelector(".profile__edit-button");
 const closedButton = document.querySelector(".popup__close-button");
 
 const editProfilePopup = document.querySelector(".popup_type_edit-profile");
 const addCardPopup = document.querySelector(".popup_type_add-card");
 const imagePopup = document.querySelector(".popup_type_image");
-
-const editForm = document.querySelector(".popup__form");
-const addForm = document.querySelector(".popup__add-form");
 
 const nameInput = editForm.querySelector(".popup__user-input_type_name");
 const aboutInput = editForm.querySelector(".popup__user-input_type_about");
@@ -40,10 +57,6 @@ const closeImageButton = imagePopup.querySelector(".popup__close-button");
 closeImageButton.addEventListener("click", () => {
   togglePopup(imagePopup);
 });
-
-// const togglePopup = (popupT) => {
-//   popupT.classList.toggle("popup_opened");
-// };
 
 const handleEscape = (e) => {
   if (e.key === "Escape") {
@@ -161,25 +174,7 @@ const closePopup = (popupT) => {
   popupT.classList.remove("popup_opened");
 };
 
-// document.addEventListener("keydown", (e) => {
-//   if (e.key === "Escape") {
-//     closePopup(addCardPopup);
-//     closePopup(editProfilePopup);
-//     closePopup(imagePopup);
-//   }
-// });
-
 const popupOverlay = [...document.querySelectorAll(".popup")];
-
-// popupOverlay.forEach((element) => {
-//   element.addEventListener("click", (e) => {
-//     if (e.target.classList.contains("popup_opened")) {
-//       closePopup(addCardPopup);
-//       closePopup(editProfilePopup);
-//       closePopup(imagePopup);
-//     }
-//   });
-// });
 
 const overlayClose = (e) => {
   if (e.target.classList.contains("popup_opened")) {
