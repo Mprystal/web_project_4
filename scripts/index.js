@@ -1,4 +1,5 @@
 import FormValidator from "./FormValidator.js";
+import Card from "./Card.js";
 
 const editForm = document.querySelector(".popup__form");
 const addForm = document.querySelector(".popup__add-form");
@@ -128,42 +129,43 @@ const initialCards = [
 ];
 
 const list = document.querySelector(".element");
-const cardTemplate = document
-  .querySelector(".element__card-template")
-  .content.querySelector(".element__card");
+const handleImagePreview = (data) => {
+  togglePopup(imagePopup);
 
-const createCard = (data) => {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardTitle = cardElement.querySelector(".element__card-heading");
-  const cardImage = cardElement.querySelector(".element__card-img");
-  const cardLikeButton = cardElement.querySelector(".element__card-heart");
-  const cardRemoveButton = cardElement.querySelector(".element__card-remove");
-
-  cardTitle.textContent = data.name;
-  cardImage.style.backgroundImage = `url(${data.link})`;
-
-  cardRemoveButton.addEventListener("click", (e) => {
-    e.target.closest(".element__card").remove();
-  });
-
-  cardLikeButton.addEventListener("click", (e) => {
-    e.target.classList.toggle("element__card-heart_active");
-  });
-
-  cardImage.addEventListener("click", () => {
-    // open image popup
-    togglePopup(imagePopup);
-
-    imageFigImg.src = `${data.link}`;
-    imageFigImg.alt = `Picture of ${data.name}`;
-    imageFigCap.textContent = `${data.name}`;
-  });
-
-  return cardElement;
+  imageFigImg.src = `${data.link}`;
+  imageFigImg.alt = `Picture of ${data.name}`;
+  imageFigCap.textContent = `${data.name}`;
 };
+// const cardTemplate = document
+//   .querySelector(".element__card-template")
+//   .content.querySelector(".element__card");
+
+// const createCard = (data) => {
+//   const cardElement = cardTemplate.cloneNode(true);
+//   const cardTitle = cardElement.querySelector(".element__card-heading");
+//   const cardImage = cardElement.querySelector(".element__card-img");
+//   const cardLikeButton = cardElement.querySelector(".element__card-heart");
+//   const cardRemoveButton = cardElement.querySelector(".element__card-remove");
+
+//   cardTitle.textContent = data.name;
+//   cardImage.style.backgroundImage = `url(${data.link})`;
+
+//   cardRemoveButton.addEventListener("click", (e) => {
+//     e.target.closest(".element__card").remove();
+//   });
+
+//   cardLikeButton.addEventListener("click", (e) => {
+//     e.target.classList.toggle("element__card-heart_active");
+//   });
+
+//   cardImage.addEventListener("click", () => handleImagePreview(data));
+
+//   return cardElement;
+// };
 
 const renderCard = (data) => {
-  list.prepend(createCard(data));
+  const card = new Card(data, ".element__card-template");
+  list.prepend(card.generateCard());
 };
 
 initialCards.forEach((data) => {
