@@ -44,15 +44,14 @@ class Card {
     e.target.closest(".element__card").remove();
   }
 
-  _handleImagePreview() {
+  _handleImagePreview = () => {
     togglePopup(imagePopup);
-    console.log(data);
 
     imageFigImg.src = `${this._link}`;
     imageFigImg.alt = `Picture of ${this._name}`;
 
     imageFigCap.textContent = `${this._name}`;
-  }
+  };
 
   _setEventListeners() {
     const cardImage = this._card.querySelector(".element__card-img");

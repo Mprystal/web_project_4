@@ -37,10 +37,10 @@ const userAbout = document.querySelector(".profile__occupation");
 
 const addCardPopupButton = document.querySelector(".profile__add-button");
 
-const imageFigImg = document.querySelector(".popup__figimg");
-const imageFigCap = document.querySelector(".popup__figcap");
+// const imageFigImg = document.querySelector(".popup__figimg");
+// const imageFigCap = document.querySelector(".popup__figcap");
 
-const popupOpen = document.querySelector(".popup__opened");
+// const popupOpen = document.querySelector(".popup__opened");
 
 addCardPopupButton.addEventListener("click", () => {
   /// toggle popup
@@ -129,13 +129,13 @@ const initialCards = [
 ];
 
 const list = document.querySelector(".element");
-const handleImagePreview = (data) => {
-  togglePopup(imagePopup);
+// const handleImagePreview = (data) => {
+//   togglePopup(imagePopup);
 
-  imageFigImg.src = `${data.link}`;
-  imageFigImg.alt = `Picture of ${data.name}`;
-  imageFigCap.textContent = `${data.name}`;
-};
+//   imageFigImg.src = `${data.link}`;
+//   imageFigImg.alt = `Picture of ${data.name}`;
+//   imageFigCap.textContent = `${data.name}`;
+// };
 // const cardTemplate = document
 //   .querySelector(".element__card-template")
 //   .content.querySelector(".element__card");
