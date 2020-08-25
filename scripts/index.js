@@ -37,11 +37,6 @@ const userAbout = document.querySelector(".profile__occupation");
 
 const addCardPopupButton = document.querySelector(".profile__add-button");
 
-// const imageFigImg = document.querySelector(".popup__figimg");
-// const imageFigCap = document.querySelector(".popup__figcap");
-
-// const popupOpen = document.querySelector(".popup__opened");
-
 addCardPopupButton.addEventListener("click", () => {
   /// toggle popup
   togglePopup(addCardPopup);
@@ -129,39 +124,6 @@ const initialCards = [
 ];
 
 const list = document.querySelector(".element");
-// const handleImagePreview = (data) => {
-//   togglePopup(imagePopup);
-
-//   imageFigImg.src = `${data.link}`;
-//   imageFigImg.alt = `Picture of ${data.name}`;
-//   imageFigCap.textContent = `${data.name}`;
-// };
-// const cardTemplate = document
-//   .querySelector(".element__card-template")
-//   .content.querySelector(".element__card");
-
-// const createCard = (data) => {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const cardTitle = cardElement.querySelector(".element__card-heading");
-//   const cardImage = cardElement.querySelector(".element__card-img");
-//   const cardLikeButton = cardElement.querySelector(".element__card-heart");
-//   const cardRemoveButton = cardElement.querySelector(".element__card-remove");
-
-//   cardTitle.textContent = data.name;
-//   cardImage.style.backgroundImage = `url(${data.link})`;
-
-//   cardRemoveButton.addEventListener("click", (e) => {
-//     e.target.closest(".element__card").remove();
-//   });
-
-//   cardLikeButton.addEventListener("click", (e) => {
-//     e.target.classList.toggle("element__card-heart_active");
-//   });
-
-//   cardImage.addEventListener("click", () => handleImagePreview(data));
-
-//   return cardElement;
-// };
 
 const renderCard = (data) => {
   const card = new Card(data, ".element__card-template");
