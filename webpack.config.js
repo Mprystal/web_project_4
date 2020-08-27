@@ -43,6 +43,5 @@ module.exports = {
       template: "index.html",
     }),
     new MiniCssExtractPlugin(),
-    "@babel/plugin-proposal-class-properties",
   ],
 };
