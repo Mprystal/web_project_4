@@ -1,6 +1,38 @@
 import "../page/index.css";
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
+import Popup from "./Popup.js";
+import PopupWithForm from "./PopupWithForm.js";
+
+const list = document.querySelector(".element");
+
+const editPopup = new PopupWithForm({
+  popupSelector: ".popup_type_edit-profile",
+  formSubmit: (item) => {
+    const card = new Card(item, "");
+  },
+});
+editPopup.setEventListeners();
+
+const imagePopup = new PopupWithImage(".popup_type_image");
+imagePopup.setEventListeners();
+
+const addPopup = new PopupWithForm({
+  popupSelector: ".popup_type_add-card",
+  formSubmit: (data) => {
+    const card = new Card(
+      {
+        data,
+        handleCardClick: () => {
+          imagePopup.open(data.link, data.name);
+        },
+      },
+      ".element__card-template"
+    );
+    list.prepend(card.generateCard());
+  },
+});
+addPopup.setEventListeners();
 
 const editForm = document.querySelector(".popup__form");
 const addForm = document.querySelector(".popup__add-form");
@@ -23,9 +55,9 @@ addFormValidator.enableValidation();
 const editButton = document.querySelector(".profile__edit-button");
 const closedButton = document.querySelector(".popup__close-button");
 
-const editProfilePopup = document.querySelector(".popup_type_edit-profile");
-const addCardPopup = document.querySelector(".popup_type_add-card");
-const imagePopup = document.querySelector(".popup_type_image");
+// const editProfilePopup = document.querySelector(".popup_type_edit-profile");
+// const addCardPopup = document.querySelector(".popup_type_add-card");
+// const imagePopup = document.querySelector(".popup_type_image");
 
 const nameInput = editForm.querySelector(".popup__user-input_type_name");
 const aboutInput = editForm.querySelector(".popup__user-input_type_about");
@@ -123,8 +155,6 @@ const initialCards = [
     link: "https://code.s3.yandex.net/web-code/lago.jpg",
   },
 ];
-
-const list = document.querySelector(".element");
 
 const renderCard = (data) => {
   const card = new Card(data, ".element__card-template");

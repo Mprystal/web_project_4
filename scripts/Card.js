@@ -1,31 +1,9 @@
-const imagePopup = document.querySelector(".popup_type_image");
-const imageFigImg = document.querySelector(".popup__figimg");
-const imageFigCap = document.querySelector(".popup__figcap");
-
-const closePopup = (popupT) => {
-  popupT.classList.remove("popup_opened");
-};
-
-const handleEscape = (e) => {
-  if (e.key === "Escape") {
-    closePopup(imagePopup);
-  }
-};
-
-const togglePopup = (popupT) => {
-  if (popupT.classList.contains("popup_opened")) {
-    document.removeEventListener("keydown", handleEscape);
-  } else {
-    document.addEventListener("keydown", handleEscape);
-  }
-  popupT.classList.toggle("popup_opened");
-};
-
 class Card {
-  constructor(data, templateSelector) {
+  constructor({ data, handleCardClick }, templateSelector) {
     this._link = data.link;
     this._name = data.name;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getCardTemplate() {
@@ -44,25 +22,31 @@ class Card {
     e.target.closest(".element__card").remove();
   }
 
-  _handleImagePreview = () => {
-    togglePopup(imagePopup);
+  // _handleImagePreview = () => {
+  //   togglePopup(imagePopup);
 
-    imageFigImg.src = `${this._link}`;
-    imageFigImg.alt = `Picture of ${this._name}`;
+  //   imageFigImg.src = `${this._link}`;
+  //   imageFigImg.alt = `Picture of ${this._name}`;
 
-    imageFigCap.textContent = `${this._name}`;
-  };
+  //   imageFigCap.textContent = `${this._name}`;
+  // };
 
   _setEventListeners() {
-    const cardImage = this._card.querySelector(".element__card-img");
-    const cardLikeButton = this._card.querySelector(".element__card-heart");
-    const cardRemoveButton = this._card.querySelector(".element__card-remove");
+    // const cardImage = this._card.querySelector(".element__card-img");
+    // const cardLikeButton = this._card.querySelector(".element__card-heart");
+    // const cardRemoveButton = this._card.querySelector(".element__card-remove");
 
-    cardRemoveButton.addEventListener("click", this._handleRemoveCard);
+    this._element
+      .querySelector(".element__card-remove")
+      .addEventListener("click", this._handleRemoveCard());
 
-    cardLikeButton.addEventListener("click", this._handleLikeIcon);
+    this._element
+      .querySelector(".element__card-heart")
+      .addEventListener("click", this._handleLikeIcon());
 
-    cardImage.addEventListener("click", this._handleImagePreview);
+    this._element
+      .querySelector(".element__card-img")
+      .addEventListener("click", () => this._handleCardClick());
   }
 
   generateCard() {
