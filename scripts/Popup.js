@@ -15,7 +15,6 @@ class Popup {
   }
 
   _handleEscClose(e) {
-    console.log("working");
     if (e.which == 27) {
       this.close();
     }
@@ -24,8 +23,8 @@ class Popup {
   setEventListeners() {
     this._popupElement.addEventListener("click", (e) => {
       if (
-        e.target.classList.contains("popup__close") ||
-        !e.target.closest("element__card")
+        e.target.classList.contains("popup__close-button") ||
+        !e.target.closest(".popup__container")
       ) {
         this.close();
       }

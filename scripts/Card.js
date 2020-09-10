@@ -36,15 +36,15 @@ class Card {
     // const cardLikeButton = this._card.querySelector(".element__card-heart");
     // const cardRemoveButton = this._card.querySelector(".element__card-remove");
 
-    this._element
+    this._card
       .querySelector(".element__card-remove")
-      .addEventListener("click", this._handleRemoveCard());
+      .addEventListener("click", this._handleRemoveCard);
 
-    this._element
+    this._card
       .querySelector(".element__card-heart")
-      .addEventListener("click", this._handleLikeIcon());
+      .addEventListener("click", this._handleLikeIcon);
 
-    this._element
+    this._card
       .querySelector(".element__card-img")
       .addEventListener("click", () => this._handleCardClick());
   }
