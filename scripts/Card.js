@@ -18,24 +18,12 @@ class Card {
     e.target.classList.toggle("element__card-heart_active");
   }
 
-  _handleRemoveCard(e) {
-    e.target.closest(".element__card").remove();
-  }
-
-  // _handleImagePreview = () => {
-  //   togglePopup(imagePopup);
-
-  //   imageFigImg.src = `${this._link}`;
-  //   imageFigImg.alt = `Picture of ${this._name}`;
-
-  //   imageFigCap.textContent = `${this._name}`;
-  // };
+  _handleRemoveCard = () => {
+    this._card.remove();
+    this._card = null;
+  };
 
   _setEventListeners() {
-    // const cardImage = this._card.querySelector(".element__card-img");
-    // const cardLikeButton = this._card.querySelector(".element__card-heart");
-    // const cardRemoveButton = this._card.querySelector(".element__card-remove");
-
     this._card
       .querySelector(".element__card-remove")
       .addEventListener("click", this._handleRemoveCard);
