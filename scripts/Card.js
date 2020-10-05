@@ -1,15 +1,26 @@
 class Card {
-  constructor({ data, handleCardClick }, templateSelector) {
+  constructor({ data, handleCardClick, handleRemovingCard }, templateSelector) {
     this._link = data.link;
     this._name = data.name;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._id = data._id;
+    this._owner = data.owner;
+    this._handleRemovingCard = handleRemovingCard;
+  }
+
+  id() {
+    console.log(data);
+    return this._id;
   }
 
   _getCardTemplate() {
     const cardTemplate = document
       .querySelector(this._templateSelector)
       .content.querySelector(".element__card");
+    //remove trash can icon when card id isnt yours
+    // classList remove "element__card-remove"
+    // console.log("hi", this._ownerId);
 
     return cardTemplate;
   }
@@ -18,7 +29,7 @@ class Card {
     e.target.classList.toggle("element__card-heart_active");
   }
 
-  _handleRemoveCard = () => {
+  remove = () => {
     this._card.remove();
     this._card = null;
   };
@@ -26,7 +37,7 @@ class Card {
   _setEventListeners() {
     this._card
       .querySelector(".element__card-remove")
-      .addEventListener("click", this._handleRemoveCard);
+      .addEventListener("click", () => this._handleRemovingCard(this.id()));
 
     this._card
       .querySelector(".element__card-heart")

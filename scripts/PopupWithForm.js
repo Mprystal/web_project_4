@@ -26,7 +26,7 @@ class PopupWithForm extends Popup {
   }
 
   close() {
-    const formSelector = this._popupElement.querySelector(".popup__add-form");
+    const formSelector = this._popupElement.querySelector("form");
     formSelector.reset();
 
     super.close();

@@ -5,10 +5,19 @@ import PopupWithForm from "./PopupWithForm.js";
 import PopupWithImage from "./PopupWithImage.js";
 import UserInfo from "./UserInfo.js";
 import { data } from "autoprefixer";
+import Api from "./Api.js";
 
 const list = document.querySelector(".element");
 
 const editPopupSelector = ".popup_type_edit-profile";
+
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-4",
+  headers: {
+    authorization: "df5252cc-ce9a-49bc-822a-e9a6c67f648c",
+    "Content-Type": "application/json",
+  },
+});
 
 const typeName = document.querySelector(".profile__name");
 const typeJob = document.querySelector(".profile__occupation");
@@ -18,13 +27,27 @@ const profileInfo = new UserInfo({
   job: typeJob,
 });
 
+api.getCardInfo().then((res) => {
+  profileInfo.setUserInfo({ userName: res.name, userJob: res.about });
+});
+
 const editPopup = new PopupWithForm({
   popupSelector: editPopupSelector,
   formSubmit: (data) => {
-    profileInfo.setUserInfo({
-      userName: data.user_name,
-      userJob: data.user_about,
-    });
+    api
+      .setUserInfo({
+        name: data.user_name,
+        about: data.user_about,
+      })
+      .then((res) => {
+        profileInfo.setUserInfo({
+          userName: data.user_name,
+          userJob: data.user_about,
+        });
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
   },
 });
 editPopup.setEventListeners();
@@ -37,19 +60,66 @@ const addPopupSelector = ".popup_type_add-card";
 const addPopup = new PopupWithForm({
   popupSelector: addPopupSelector,
   formSubmit: (data) => {
+    api.addCard(data).then((res) => {
+      const card = new Card(
+        {
+          data,
+          handleCardClick: () => {
+            imagePopup.open(data.link, data.name);
+          },
+          handleRemovingCard: (cardId) => {
+            api
+              .removeCard(cardId)
+              .then(() => {
+                console.log(res);
+              })
+              .then(() => {
+                card.remove();
+              })
+              .catch((err) => {
+                console.log("error", err);
+              });
+          },
+        },
+        ".element__card-template"
+      );
+      list.prepend(card.generateCard());
+    });
+  },
+});
+addPopup.setEventListeners();
+
+api.getCardList().then((res) => {
+  const renderCard = (data) => {
     const card = new Card(
       {
         data,
         handleCardClick: () => {
           imagePopup.open(data.link, data.name);
         },
+        handleRemovingCard: (cardId) => {
+          api
+            .removeCard(cardId)
+            .then(() => {
+              console.log(cardId);
+            })
+            .then(() => {
+              card.remove();
+            })
+            .catch((err) => {
+              console.log("error", err);
+            });
+        },
       },
       ".element__card-template"
     );
     list.prepend(card.generateCard());
-  },
+  };
+
+  res.forEach((data) => {
+    renderCard(data);
+  });
 });
-addPopup.setEventListeners();
 
 const defaultConfig = {
   formSelector: ".popup__form",
@@ -86,10 +156,6 @@ editButton.addEventListener("click", () => {
   editPopup.open();
 });
 
-// closeButton.addEventListener("click",() =>{
-
-// })
-
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -116,20 +182,3 @@ const initialCards = [
     link: "https://code.s3.yandex.net/web-code/lago.jpg",
   },
 ];
-
-const renderCard = (data) => {
-  const card = new Card(
-    {
-      data,
-      handleCardClick: () => {
-        imagePopup.open(data.link, data.name);
-      },
-    },
-    ".element__card-template"
-  );
-  list.prepend(card.generateCard());
-};
-
-initialCards.forEach((data) => {
-  renderCard(data);
-});
