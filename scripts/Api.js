@@ -17,7 +17,7 @@ class Api {
     );
   }
   //   GET https://around.nomoreparties.co/v1/groupId/users/me
-  getCardInfo() {
+  getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
     }).then((res) =>
@@ -62,8 +62,22 @@ class Api {
   }
 
   //   PUT https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
+
+  changeLikeCardStatus(cardId, isLiked) {
+    const methodName = isLiked ? "PUT" : "DELETE";
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: methodName,
+      headers: this._headers,
+    }).then((res) =>
+      res.ok
+        ? res.json()
+        : Promise.reject(`Error! ${res.statusText}`).catch((err) =>
+            console.log(err)
+          )
+    );
+  }
+
   //   DELETE https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
-  changeLikeCardStatus(cardID, like) {}
 
   //   PATCH https://around.nomoreparties.co/v1/groupId/users/me
   setUserInfo({ name, about }) {

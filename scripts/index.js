@@ -6,8 +6,7 @@ import PopupWithImage from "./PopupWithImage.js";
 import UserInfo from "./UserInfo.js";
 import { data } from "autoprefixer";
 import Api from "./Api.js";
-
-const list = document.querySelector(".element");
+import Section from "./Section.js";
 
 const editPopupSelector = ".popup_type_edit-profile";
 
@@ -27,158 +26,147 @@ const profileInfo = new UserInfo({
   job: typeJob,
 });
 
-api.getCardInfo().then((res) => {
-  profileInfo.setUserInfo({ userName: res.name, userJob: res.about });
-});
-
-const editPopup = new PopupWithForm({
-  popupSelector: editPopupSelector,
-  formSubmit: (data) => {
-    api
-      .setUserInfo({
-        name: data.user_name,
-        about: data.user_about,
-      })
-      .then((res) => {
-        profileInfo.setUserInfo({
-          userName: data.user_name,
-          userJob: data.user_about,
-        });
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
-  },
-});
-editPopup.setEventListeners();
-
-const imagePopup = new PopupWithImage(".popup_type_image");
-imagePopup.setEventListeners();
-
-const addPopupSelector = ".popup_type_add-card";
-
-const addPopup = new PopupWithForm({
-  popupSelector: addPopupSelector,
-  formSubmit: (data) => {
-    api.addCard(data).then((res) => {
-      const card = new Card(
-        {
-          data,
-          handleCardClick: () => {
-            imagePopup.open(data.link, data.name);
-          },
-          handleRemovingCard: (cardId) => {
-            api
-              .removeCard(cardId)
-              .then(() => {
-                console.log(res);
-              })
-              .then(() => {
-                card.remove();
-              })
-              .catch((err) => {
-                console.log("error", err);
-              });
-          },
-        },
-        ".element__card-template"
-      );
-      list.prepend(card.generateCard());
+Promise.all([api.getUserInfo(), api.getCardList()]).then(
+  ([userInfo, cardListData]) => {
+    // ... all code for displaying your application goes here and will only be executed after successful request for userInfo and cardList
+    const addPopupSelector = ".popup_type_add-card";
+    profileInfo.setUserInfo({
+      userName: userInfo.name,
+      userJob: userInfo.about,
     });
-  },
-});
-addPopup.setEventListeners();
-
-api.getCardList().then((res) => {
-  const renderCard = (data) => {
-    const card = new Card(
+    const cardList = new Section(
       {
-        data,
-        handleCardClick: () => {
-          imagePopup.open(data.link, data.name);
-        },
-        handleRemovingCard: (cardId) => {
-          api
-            .removeCard(cardId)
-            .then(() => {
-              console.log(cardId);
-            })
-            .then(() => {
-              card.remove();
-            })
-            .catch((err) => {
-              console.log("error", err);
-            });
+        items: cardListData,
+        renderer: (data) => {
+          const card = new Card(
+            {
+              data,
+              handleCardClick: () => {
+                imagePopup.open(data.link, data.name);
+              },
+              handleRemovingCard: (cardId) => {
+                api
+                  .removeCard(cardId)
+                  .then(() => {
+                    console.log(cardId);
+                  })
+
+                  .then(() => {
+                    card.remove();
+                  })
+                  .catch((err) => {
+                    console.log("error", err);
+                  });
+              },
+              handleLikes: (cardId, isLiked) => {
+                api
+                  .changeLikeCardStatus(cardId, isLiked).then((data)=>{
+                    card.isLiked(data);
+                  })
+                  .then(() => {
+                    console.log(cardId, isLiked);
+                  })
+                  .catch((err) => {
+                    console.log("error", err);
+                  });
+              },
+              currentUserId: "7fb54333084f7cc9cdc452a8",
+            },
+            ".element__card-template"
+          );
+
+          cardList.appendItem(card.generateCard());
         },
       },
-      ".element__card-template"
+      ".element"
     );
-    list.prepend(card.generateCard());
-  };
+    cardList.renderer();
+    const addPopup = new PopupWithForm({
+      popupSelector: addPopupSelector,
+      formSubmit: (data) => {
+        api.addCard(data).then((addCardData) => {
+          const card = new Card(
+            {
+              data: addCardData,
+              handleCardClick: () => {
+                imagePopup.open(data.link, data.name);
+              },
+              handleRemovingCard: (cardId) => {
+                api
+                  .removeCard(cardId)
 
-  res.forEach((data) => {
-    renderCard(data);
-  });
-});
+                  .then(() => {
+                    card.remove();
+                  })
+                  .catch((err) => {
+                    console.log("error", err);
+                  });
+              },
+              currentUserId: "7fb54333084f7cc9cdc452a8",
+            },
+            ".element__card-template"
+          );
 
-const defaultConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__user-input",
-  submitButtonSelector: ".popup__save",
-  inactiveButtonClass: "popup__save_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
+          cardList.prependItem(card.generateCard());
+        });
+      },
+    });
 
-const editFormValidator = new FormValidator(
-  defaultConfig,
-  document.querySelector(editPopupSelector)
+    addPopup.setEventListeners();
+    const addCardPopupButton = document.querySelector(".profile__add-button");
+
+    addCardPopupButton.addEventListener("click", () => {
+      addPopup.open();
+    });
+    const editPopup = new PopupWithForm({
+      popupSelector: editPopupSelector,
+      formSubmit: (data) => {
+        api
+          .setUserInfo({
+            name: data.user_name,
+            about: data.user_about,
+          })
+          .then((res) => {
+            profileInfo.setUserInfo({
+              userName: data.user_name,
+              userJob: data.user_about,
+            });
+          })
+          .catch((err) => {
+            console.log("error", err);
+          });
+      },
+    });
+    editPopup.setEventListeners();
+
+    const imagePopup = new PopupWithImage(".popup_type_image");
+    imagePopup.setEventListeners();
+
+    const defaultConfig = {
+      formSelector: ".popup__form",
+      inputSelector: ".popup__user-input",
+      submitButtonSelector: ".popup__save",
+      inactiveButtonClass: "popup__save_disabled",
+      inputErrorClass: "popup__input_type_error",
+      errorClass: "popup__error_visible",
+    };
+
+    const editFormValidator = new FormValidator(
+      defaultConfig,
+      document.querySelector(editPopupSelector)
+    );
+    const addFormValidator = new FormValidator(
+      defaultConfig,
+      document.querySelector(addPopupSelector)
+    );
+
+    editFormValidator.enableValidation();
+    addFormValidator.enableValidation();
+
+    const editButton = document.querySelector(".profile__edit-button");
+
+    editButton.addEventListener("click", () => {
+      editPopup.open();
+    });
+  }
 );
-const addFormValidator = new FormValidator(
-  defaultConfig,
-  document.querySelector(addPopupSelector)
-);
-
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
-
-const editButton = document.querySelector(".profile__edit-button");
-
-const addCardPopupButton = document.querySelector(".profile__add-button");
-
-// const closeButton = document.querySelector(".popup__close-button");
-
-addCardPopupButton.addEventListener("click", () => {
-  addPopup.open();
-});
-
-editButton.addEventListener("click", () => {
-  editPopup.open();
-});
-
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
-  },
-  {
-    name: "Vanois National Park",
-    link: "https://code.s3.yandex.net/web-code/vanois.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
-  },
-];

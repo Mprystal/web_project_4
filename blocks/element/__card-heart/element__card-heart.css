@@ -1,8 +1,21 @@
+.element__card-group-likes {
+  position: absolute;
+  bottom: 20px;
+  right: 18px;
+}
+
+.element__card-likes {
+  margin: 0;
+  padding-left: 7px;
+  font-size: 13px;
+}
+
+.element__card-hidden {
+  display: none;
+}
+
 .element__card-heart {
   background: url(../../../images/Vectorheart.svg) no-repeat;
-  position: absolute;
-  bottom: 30px;
-  right: 18px;
   width: 21px;
   height: 18px;
   border: none;
@@ -13,12 +26,8 @@
   transition: ease-in 0.2s;
 }
 
-/* this is here due to file not working, need helpful comment please */
 .element__card-heart_active {
   background: url(../../../images/VectorblackHeart.svg) no-repeat;
-  position: absolute;
-  bottom: 30px;
-  right: 18px;
   width: 21px;
   height: 18px;
   border: none;
