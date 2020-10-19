@@ -58,17 +58,33 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                     console.log("error", err);
                   });
               },
-              handleLikes: (cardId, isLiked) => {
-                api
-                  .changeLikeCardStatus(cardId, isLiked).then((data)=>{
-                    card.isLiked(data);
+              handleLikes: (cardId) => {
+                console.log(card.cardLikeButton)
+                if( card.cardLikeButton.classList.contains("element__card-heart_active")){
+                  api
+                  .changeLikeCardStatus(cardId, true).then((data)=>{
+                    card.updateLiked(data.likes.length);
                   })
                   .then(() => {
-                    console.log(cardId, isLiked);
+                    card.cardLikeButton.classList.remove("element__card-heart_active")
                   })
                   .catch((err) => {
                     console.log("error", err);
                   });
+                  
+                } else {
+                  api
+                  .changeLikeCardStatus(cardId, false).then((data)=>{
+                    card.updateLiked(data.likes.length);
+                  })
+                  .then(() => {
+                    card.cardLikeButton.classList.add("element__card-heart_active")
+                  })
+                  .catch((err) => {
+                    console.log("error", err);
+                  });
+                }
+                
               },
               currentUserId: "7fb54333084f7cc9cdc452a8",
             },

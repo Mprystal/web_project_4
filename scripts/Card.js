@@ -14,6 +14,10 @@ class Card {
     this.data = data;
     this._currentUserId = currentUserId;
     this._handleLikes = handleLikes;
+    this._card = this._getCardTemplate();
+    this.cardLikeButton = this._card.querySelector(".element__card-heart");
+    this._cardLikes = this._card.querySelector(".element__card-likes");
+    
   }
 
   id() {
@@ -23,14 +27,15 @@ class Card {
   _getCardTemplate() {
     const cardTemplate = document
       .querySelector(this._templateSelector)
-      .content.querySelector(".element__card");
+      .content.querySelector(".element__card").cloneNode(true);
 
     if (this._owner !== this._currentUserId) {
       cardTemplate.children[0].classList.add("element__card-hidden");
     } else {
       cardTemplate.children[0].classList.remove("element__card-hidden");
     }
-
+  
+    console.log()
     return cardTemplate;
   }
 
@@ -40,14 +45,14 @@ class Card {
 
   likedStatus = (e) =>{
     if( e.target.classList.contains("element__card-heart_active")){
-      console.log(e);
+      return true
     } else {
-      console.log(e,"2");
+      return false
     }
   }
 
-  isLiked= () => {
-    console.log("liked")
+  updateLiked= (num) => {
+    this._cardLikes.textContent = num;
   }
 
   isNotLiked= () =>{
@@ -68,7 +73,7 @@ class Card {
       .querySelector(".element__card-heart")
       .addEventListener(
         "click", () =>
-        this._handleLikes(this.id(),this.likedStatus)
+        this._handleLikes(this.id())
       );
 
     this._card
@@ -77,14 +82,14 @@ class Card {
   }
 
   generateCard() {
-    this._card = this._getCardTemplate().cloneNode(true);
+   
     const cardTitle = this._card.querySelector(".element__card-heading");
     const cardImage = this._card.querySelector(".element__card-img");
-    const cardLikes = this._card.querySelector(".element__card-likes");
+   
 
     cardTitle.textContent = this._name;
     cardImage.style.backgroundImage = `url(${this._link})`;
-    cardLikes.textContent = this._likes;
+    this._cardLikes.textContent = this._likes;
 
     this._setEventListeners();
 

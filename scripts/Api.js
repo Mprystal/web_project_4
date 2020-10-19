@@ -64,7 +64,7 @@ class Api {
   //   PUT https://around.nomoreparties.co/v1/groupId/cards/likes/cardId
 
   changeLikeCardStatus(cardId, isLiked) {
-    const methodName = isLiked ? "PUT" : "DELETE";
+    const methodName = isLiked ? "DELETE" : "PUT";
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       method: methodName,
       headers: this._headers,
