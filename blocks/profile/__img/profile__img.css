@@ -1,3 +1,17 @@
+.profile__img-form {
+  background-color: black;
+  border: none;
+}
+
+.profile__img-form:focus {
+  outline: none;
+}
+
+.profile__img-form:hover {
+  background: url(../../../images/pen.svg) no-repeat center;
+  background-size: 26px;
+}
+
 .profile__img {
   background: url(../../../images/imageprofileGuy.jpg) no-repeat;
   background-size: contain;
@@ -5,4 +19,9 @@
   width: 120px;
   height: 120px;
   margin: 0 auto;
+}
+
+.profile__img:hover {
+  opacity: 0.3;
+  transition: ease-in 0.2s;
 }

@@ -97,7 +97,21 @@ class Api {
     );
   }
   //   PATCH https://around.nomoreparties.co/v1/groupId/users/me/avatar
-  setUserAvatar({ avatar }) {}
+  setUserAvatar({ avatar }) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar
+      }),
+    }).then((res) =>
+      res.ok
+        ? res.json()
+        : Promise.reject(`Error! ${res.statusText}`).catch((err) =>
+            console.log(err)
+          )
+    );
+  }
 }
 
 export default Api;

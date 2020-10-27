@@ -12,7 +12,14 @@
     <main>
       <section class="profile">
         <div class="profile__container">
-          <div class="profile__img"></div>
+          <button
+            class="profile__img-form"
+            aria-label="Change profile picture button"
+            type="button"
+          >
+            <div class="profile__img"></div>
+          </button>
+
           <div class="profile__info">
             <div class="profile__edit">
               <h1 class="profile__name"></h1>
@@ -111,6 +118,36 @@
 
           <button type="submit" class="popup__save popup__save_disabled">
             Create
+          </button>
+        </form>
+        <button
+          class="popup__close-button"
+          aria-label="Close popup button"
+          type="button"
+        ></button>
+      </div>
+    </div>
+    <div class="popup popup_type_profile-img">
+      <div class="popup__container">
+        <form action="#" class="popup__form popup__profile-img-form">
+          <h3 class="popup__header">Change Profile Picture</h3>
+
+          <input
+            id="profile-img-url"
+            class="popup__user-input popup__user-input_url"
+            type="url"
+            name="link"
+            placeholder="Image link"
+            required
+          />
+
+          <span id="profile-img-url-error" class="popup__error"></span>
+
+          <button
+            type="submit"
+            class="popup__save popup__save_disabled popup__save_disabled_theme_large"
+          >
+            Save
           </button>
         </form>
         <button

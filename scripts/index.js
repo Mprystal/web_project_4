@@ -24,12 +24,14 @@ const typeJob = document.querySelector(".profile__occupation");
 const profileInfo = new UserInfo({
   name: typeName,
   job: typeJob,
+  
 });
 
 Promise.all([api.getUserInfo(), api.getCardList()]).then(
   ([userInfo, cardListData]) => {
     // ... all code for displaying your application goes here and will only be executed after successful request for userInfo and cardList
     const addPopupSelector = ".popup_type_add-card";
+    const profileImgSelector = ".popup_type_profile-img"
     profileInfo.setUserInfo({
       userName: userInfo.name,
       userJob: userInfo.about,
@@ -38,6 +40,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       {
         items: cardListData,
         renderer: (data) => {
+          
           const card = new Card(
             {
               data,
@@ -59,7 +62,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                   });
               },
               handleLikes: (cardId) => {
-                console.log(card.cardLikeButton)
+                
                 if( card.cardLikeButton.classList.contains("element__card-heart_active")){
                   api
                   .changeLikeCardStatus(cardId, true).then((data)=>{
@@ -137,12 +140,13 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     const editPopup = new PopupWithForm({
       popupSelector: editPopupSelector,
       formSubmit: (data) => {
+      
         api
           .setUserInfo({
             name: data.user_name,
             about: data.user_about,
           })
-          .then((res) => {
+          .then(() => {
             profileInfo.setUserInfo({
               userName: data.user_name,
               userJob: data.user_about,
@@ -175,14 +179,46 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       defaultConfig,
       document.querySelector(addPopupSelector)
     );
+    const profileImgValidator = new FormValidator(
+      defaultConfig,
+      document.querySelector(profileImgSelector)
+    );
 
     editFormValidator.enableValidation();
     addFormValidator.enableValidation();
+    profileImgValidator.enableValidation();
 
     const editButton = document.querySelector(".profile__edit-button");
 
     editButton.addEventListener("click", () => {
       editPopup.open();
     });
+
+    const profileImgButton = document.querySelector(".profile__img-form");
+    profileImgButton.addEventListener("click", () => {
+      profileImgPopup.open();
+    });
+    
+
+    const profileImgPopup = new PopupWithForm({
+      popupSelector: profileImgSelector,
+      formSubmit: (data) => {
+        const profileAvatar = document.querySelector(".profile__img")
+        
+        api.setUserAvatar({avatar: data.link}).then((res) => {
+          profileAvatar.style.backgroundImage = "url('" + res.avatar + "')";
+          profileAvatar.style.backgroundPosition = "center";
+          console.log(res)
+        })
+        // .then((res)=>{
+        //   console.log(res)
+        // })
+        .catch((err) => {
+          console.log("error", err);
+        });;
+      },
+    });
+    profileImgPopup.setEventListeners();
   }
+  
 );
