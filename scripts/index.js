@@ -20,11 +20,13 @@ const api = new Api({
 
 const typeName = document.querySelector(".profile__name");
 const typeJob = document.querySelector(".profile__occupation");
+const profileAvatar = document.querySelector(".profile__img")
+
 
 const profileInfo = new UserInfo({
   name: typeName,
   job: typeJob,
-  
+  avatar: profileAvatar
 });
 
 Promise.all([api.getUserInfo(), api.getCardList()]).then(
@@ -32,10 +34,13 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     // ... all code for displaying your application goes here and will only be executed after successful request for userInfo and cardList
     const addPopupSelector = ".popup_type_add-card";
     const profileImgSelector = ".popup_type_profile-img"
+   
     profileInfo.setUserInfo({
       userName: userInfo.name,
       userJob: userInfo.about,
+      userAvatar: userInfo.avatar
     });
+    console.log(userInfo.avatar)
     const cardList = new Section(
       {
         items: cardListData,
@@ -202,17 +207,18 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
 
     const profileImgPopup = new PopupWithForm({
       popupSelector: profileImgSelector,
-      formSubmit: (data) => {
-        const profileAvatar = document.querySelector(".profile__img")
-        
+      formSubmit: (data) => { 
+
         api.setUserAvatar({avatar: data.link}).then((res) => {
           profileAvatar.style.backgroundImage = "url('" + res.avatar + "')";
           profileAvatar.style.backgroundPosition = "center";
           console.log(res)
         })
-        // .then((res)=>{
-        //   console.log(res)
-        // })
+        .then(() => {  
+          profileInfo.setUserInfo({
+            userAvatar: data.link
+          });
+        })
         .catch((err) => {
           console.log("error", err);
         });;
