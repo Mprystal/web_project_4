@@ -25,7 +25,7 @@ class UserInfo {
   constructor({ name, job, avatar }) {
     this._name = name;
     this._job = job;
-    this._avatar = avatar
+    this._avatar = avatar;
   }
 
   
@@ -41,7 +41,7 @@ class UserInfo {
   setUserInfo({ userName, userJob, userAvatar }) {
     this._name.textContent = userName;
     this._job.textContent = userJob;
-    this._avatar.style.backgroundImage = userAvatar;
+    this._avatar.style.backgroundImage = `url(${userAvatar})`
   }
 }
 

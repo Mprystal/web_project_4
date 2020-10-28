@@ -208,16 +208,12 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     const profileImgPopup = new PopupWithForm({
       popupSelector: profileImgSelector,
       formSubmit: (data) => { 
-
-        api.setUserAvatar({avatar: data.link}).then((res) => {
+        console.log(data)
+        api.setUserAvatar(data.link).then((res) => {  
+          console.log(res)
           profileAvatar.style.backgroundImage = "url('" + res.avatar + "')";
           profileAvatar.style.backgroundPosition = "center";
-          console.log(res)
-        })
-        .then(() => {  
-          profileInfo.setUserInfo({
-            userAvatar: data.link
-          });
+          console.log(data.link)
         })
         .catch((err) => {
           console.log("error", err);
