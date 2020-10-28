@@ -1,4 +1,5 @@
 @import url(./_disabled/popup__save_disabled.css);
+@import url(./_theme_small/popup__save_theme_small.css);
 
 .popup__save {
   background-color: black;

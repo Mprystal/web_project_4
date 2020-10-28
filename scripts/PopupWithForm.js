@@ -15,6 +15,10 @@ class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  getCardId (cardId) {
+    return cardId
+  }
+
   setEventListeners() {
     this._popupElement.addEventListener("submit", (e) => {
       e.preventDefault();

@@ -42,6 +42,7 @@ class UserInfo {
     this._name.textContent = userName;
     this._job.textContent = userJob;
     this._avatar.style.backgroundImage = `url(${userAvatar})`
+  
   }
 }
 

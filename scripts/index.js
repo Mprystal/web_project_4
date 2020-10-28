@@ -33,14 +33,16 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
   ([userInfo, cardListData]) => {
     // ... all code for displaying your application goes here and will only be executed after successful request for userInfo and cardList
     const addPopupSelector = ".popup_type_add-card";
-    const profileImgSelector = ".popup_type_profile-img"
+    const profileImgSelector = ".popup_type_profile-img";
+    const removeCardSelector = ".popup_type_delete-card";
+    
    
     profileInfo.setUserInfo({
       userName: userInfo.name,
       userJob: userInfo.about,
       userAvatar: userInfo.avatar
     });
-    console.log(userInfo.avatar)
+    
     const cardList = new Section(
       {
         items: cardListData,
@@ -53,18 +55,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                 imagePopup.open(data.link, data.name);
               },
               handleRemovingCard: (cardId) => {
-                api
-                  .removeCard(cardId)
-                  .then(() => {
-                    console.log(cardId);
-                  })
-
-                  .then(() => {
-                    card.remove();
-                  })
-                  .catch((err) => {
-                    console.log("error", err);
-                  });
+                deletePopup.getCardId(cardId);
               },
               handleLikes: (cardId) => {
                 
@@ -116,15 +107,9 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                 imagePopup.open(data.link, data.name);
               },
               handleRemovingCard: (cardId) => {
-                api
-                  .removeCard(cardId)
-
-                  .then(() => {
-                    card.remove();
-                  })
-                  .catch((err) => {
-                    console.log("error", err);
-                  });
+                console.log(cardId)
+                deletePopup.getCardId(cardId)
+                
               },
               currentUserId: "7fb54333084f7cc9cdc452a8",
             },
@@ -136,12 +121,39 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       },
     });
 
+
+    const deletePopup = new PopupWithForm({
+      popupSelector: removeCardSelector,
+      formSubmit: ()=> {
+       
+        api
+      .removeCard(cardId)
+      .then(() => {
+        card.remove();
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
+      }
+    })
+
+
+    deletePopup.setEventListeners();
+    const removeCardButton = document.querySelector(".element__card-remove");
+    removeCardButton.addEventListener("click", () => {
+      deletePopup.open();
+    });
+
     addPopup.setEventListeners();
     const addCardPopupButton = document.querySelector(".profile__add-button");
 
     addCardPopupButton.addEventListener("click", () => {
       addPopup.open();
     });
+
+
+
+
     const editPopup = new PopupWithForm({
       popupSelector: editPopupSelector,
       formSubmit: (data) => {
@@ -208,12 +220,10 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     const profileImgPopup = new PopupWithForm({
       popupSelector: profileImgSelector,
       formSubmit: (data) => { 
-        console.log(data)
+    
         api.setUserAvatar(data.link).then((res) => {  
-          console.log(res)
           profileAvatar.style.backgroundImage = "url('" + res.avatar + "')";
           profileAvatar.style.backgroundPosition = "center";
-          console.log(data.link)
         })
         .catch((err) => {
           console.log("error", err);
