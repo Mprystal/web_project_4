@@ -55,10 +55,6 @@ class Card {
     this._cardLikes.textContent = num;
   }
 
-  isNotLiked= () =>{
-    console.log("notliked")
-  }
-
   remove = () => {
     this._card.remove();
     this._card = null;
