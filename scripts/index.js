@@ -29,12 +29,23 @@ const profileInfo = new UserInfo({
   avatar: profileAvatar
 });
 
+
+
 Promise.all([api.getUserInfo(), api.getCardList()]).then(
   ([userInfo, cardListData]) => {
     // ... all code for displaying your application goes here and will only be executed after successful request for userInfo and cardList
     const addPopupSelector = ".popup_type_add-card";
     const profileImgSelector = ".popup_type_profile-img";
     const removeCardSelector = ".popup_type_delete-card";
+   
+
+    const deletePopup = new PopupWithForm({
+      popupSelector: removeCardSelector,
+      formSubmit: ()=> {
+       
+     
+      }
+    })
     
    
     profileInfo.setUserInfo({
@@ -55,7 +66,13 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                 imagePopup.open(data.link, data.name);
               },
               handleRemovingCard: (cardId) => {
-                deletePopup.getCardId(cardId);
+                deletePopup.open();
+                deletePopup.setSubmitAction(() => api.removeCard(cardId).then(() => {
+                  card.remove();
+                })
+                .catch((err) => {
+                  console.log("error", err);
+                }))
               },
               handleLikes: (cardId) => {
                 
@@ -107,8 +124,13 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                 imagePopup.open(data.link, data.name);
               },
               handleRemovingCard: (cardId) => {
-                console.log(cardId)
-                deletePopup.getCardId(cardId)
+                deletePopup.open();
+                deletePopup.setSubmitAction(() => api.removeCard(cardId).then(() => {
+                  card.remove();
+                })
+                .catch((err) => {
+                  console.log("error", err);
+                }))
                 
               },
               currentUserId: "7fb54333084f7cc9cdc452a8",
@@ -121,29 +143,8 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       },
     });
 
-
-    const deletePopup = new PopupWithForm({
-      popupSelector: removeCardSelector,
-      formSubmit: ()=> {
-       
-        api
-      .removeCard(cardId)
-      .then(() => {
-        card.remove();
-      })
-      .catch((err) => {
-        console.log("error", err);
-      });
-      }
-    })
-
-
     deletePopup.setEventListeners();
-    const removeCardButton = document.querySelector(".element__card-remove");
-    removeCardButton.addEventListener("click", () => {
-      deletePopup.open();
-    });
-
+  
     addPopup.setEventListeners();
     const addCardPopupButton = document.querySelector(".profile__add-button");
 

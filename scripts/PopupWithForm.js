@@ -15,8 +15,8 @@ class PopupWithForm extends Popup {
     return this._formValues;
   }
 
-  getCardId (cardId) {
-    return cardId
+  setSubmitAction(action) {
+    this._formSubmit = action;
   }
 
   setEventListeners() {
