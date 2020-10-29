@@ -158,16 +158,18 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     const editPopup = new PopupWithForm({
       popupSelector: editPopupSelector,
       formSubmit: (data) => {
-      
+    
         api
           .setUserInfo({
             name: data.user_name,
             about: data.user_about,
+            
           })
           .then(() => {
             profileInfo.setUserInfo({
               userName: data.user_name,
               userJob: data.user_about,
+              userAvatar: userInfo.avatar
             });
           })
           .catch((err) => {
