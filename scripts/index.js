@@ -37,7 +37,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     const addPopupSelector = ".popup_type_add-card";
     const profileImgSelector = ".popup_type_profile-img";
     const removeCardSelector = ".popup_type_delete-card";
-   
+    
 
     const deletePopup = new PopupWithForm({
       popupSelector: removeCardSelector,
@@ -140,7 +140,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
 
           cardList.prependItem(card.generateCard());
         });
-      },
+      }, buttonSelector: ".popup__save"
     });
 
     deletePopup.setEventListeners();
@@ -173,7 +173,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
           .catch((err) => {
             console.log("error", err);
           });
-      },
+      }, buttonSelector: ".popup__save"
     });
     editPopup.setEventListeners();
 

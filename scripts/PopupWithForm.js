@@ -1,9 +1,10 @@
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
-  constructor({ popupSelector, formSubmit }) {
+  constructor({ popupSelector, formSubmit, buttonSelector  }) {
     super(popupSelector);
     this._formSubmit = formSubmit;
+    this._buttonSelector = buttonSelector;
   }
 
   _getInputValues() {
@@ -26,6 +27,10 @@ class PopupWithForm extends Popup {
       this._formSubmit(this._getInputValues());
       this.close();
     });
+
+    this._popupElement.addEventListener("loadstart",() => {
+      this._buttonSelector.textContent = "Saving..."
+    })
     super.setEventListeners();
   }
 
