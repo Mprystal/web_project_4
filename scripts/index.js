@@ -37,7 +37,9 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     const addPopupSelector = ".popup_type_add-card";
     const profileImgSelector = ".popup_type_profile-img";
     const removeCardSelector = ".popup_type_delete-card";
-    
+    const saveAddButton = document.querySelector(".popup__save-add");
+    const saveEditButton = document.querySelector(".popup_save-edit")
+    const saveProfilePicButton = document.querySelector(".popup_save-profile-pic")
 
     const deletePopup = new PopupWithForm({
       popupSelector: removeCardSelector,
@@ -46,6 +48,18 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
      
       }
     })
+
+    const handleLoading = (loading, popupSelector) => {
+  
+      if(loading === "isLoading"){
+       
+        popupSelector.textContent = "Saving..."
+      } if( loading === "isNotLoading"){
+        
+        popupSelector.textContent = "Save";
+        
+      }
+    }
     
    
     profileInfo.setUserInfo({
@@ -116,6 +130,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     const addPopup = new PopupWithForm({
       popupSelector: addPopupSelector,
       formSubmit: (data) => {
+        handleLoading("isLoading", saveAddButton);
         api.addCard(data).then((addCardData) => {
           const card = new Card(
             {
@@ -139,6 +154,9 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
           );
 
           cardList.prependItem(card.generateCard());
+        })
+        .then(() => {
+          handleLoading("isNotLoading", saveAddButton)
         });
       }, buttonSelector: ".popup__save"
     });
@@ -158,7 +176,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     const editPopup = new PopupWithForm({
       popupSelector: editPopupSelector,
       formSubmit: (data) => {
-    
+        handleLoading("isLoading", saveEditButton);
         api
           .setUserInfo({
             name: data.user_name,
@@ -171,6 +189,8 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
               userJob: data.user_about,
               userAvatar: userInfo.avatar
             });
+          }).then(() => {
+            handleLoading("isNotLoading", saveEditButton)
           })
           .catch((err) => {
             console.log("error", err);
@@ -223,10 +243,12 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     const profileImgPopup = new PopupWithForm({
       popupSelector: profileImgSelector,
       formSubmit: (data) => { 
-    
+        handleLoading("isLoading", saveProfilePicButton)
         api.setUserAvatar(data.link).then((res) => {  
           profileAvatar.style.backgroundImage = "url('" + res.avatar + "')";
           profileAvatar.style.backgroundPosition = "center";
+        }).then(() => {
+          handleLoading("isNotLoading", saveProfilePicButton)
         })
         .catch((err) => {
           console.log("error", err);

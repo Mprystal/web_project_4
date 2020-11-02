@@ -28,9 +28,7 @@ class PopupWithForm extends Popup {
       this.close();
     });
 
-    this._popupElement.addEventListener("loadstart",() => {
-      this._buttonSelector.textContent = "Saving..."
-    })
+  
     super.setEventListeners();
   }
 
