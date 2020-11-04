@@ -60,8 +60,8 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
         
       }
     }
-    
-   
+
+  
     profileInfo.setUserInfo({
       userName: userInfo.name,
       userJob: userInfo.about,
@@ -147,6 +147,33 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                   console.log("error", err);
                 }))
                 
+              },handleLikes: (cardId) => {
+                
+                if( card.cardLikeButton.classList.contains("element__card-heart_active")){
+                  api
+                  .changeLikeCardStatus(cardId, true).then((data)=>{
+                    card.updateLiked(data.likes.length);
+                  })
+                  .then(() => {
+                    card.cardLikeButton.classList.remove("element__card-heart_active")
+                  })
+                  .catch((err) => {
+                    console.log("error", err);
+                  });
+                  
+                } else {
+                  api
+                  .changeLikeCardStatus(cardId, false).then((data)=>{
+                    card.updateLiked(data.likes.length);
+                  })
+                  .then(() => {
+                    card.cardLikeButton.classList.add("element__card-heart_active")
+                  })
+                  .catch((err) => {
+                    console.log("error", err);
+                  });
+                }
+                
               },
               currentUserId: "7fb54333084f7cc9cdc452a8",
             },
@@ -171,11 +198,16 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     });
 
 
+    const inputNameSelector = document.querySelector(".popup__user-input_type_name")
+    const inputAboutSelector = document.querySelector(".popup__user-input_type_about")
 
+    inputNameSelector.placeholder = typeName.textContent
+    inputAboutSelector.placeholder = typeJob.textContent
 
     const editPopup = new PopupWithForm({
       popupSelector: editPopupSelector,
       formSubmit: (data) => {
+        
         handleLoading("isLoading", saveEditButton);
         api
           .setUserInfo({
@@ -189,7 +221,12 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
               userJob: data.user_about,
               userAvatar: userInfo.avatar
             });
-          }).then(() => {
+          })
+          .then(()=> {
+            inputNameSelector.placeholder = typeName.textContent
+            inputAboutSelector.placeholder= typeJob.textContent
+          })
+          .then(() => {
             handleLoading("isNotLoading", saveEditButton)
           })
           .catch((err) => {
@@ -198,7 +235,6 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       }, buttonSelector: ".popup__save"
     });
     editPopup.setEventListeners();
-
     const imagePopup = new PopupWithImage(".popup_type_image");
     imagePopup.setEventListeners();
 
@@ -256,6 +292,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       },
     });
     profileImgPopup.setEventListeners();
+
   }
   
 );
