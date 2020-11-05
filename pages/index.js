@@ -1,12 +1,12 @@
-import "../page/index.css";
-import FormValidator from "./FormValidator.js";
-import Card from "./Card.js";
-import PopupWithForm from "./PopupWithForm.js";
-import PopupWithImage from "./PopupWithImage.js";
-import UserInfo from "./UserInfo.js";
+import "./index.css";
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
 import { data } from "autoprefixer";
-import Api from "./Api.js";
-import Section from "./Section.js";
+import Api from "../components/Api.js";
+import Section from "../components/Section.js";
 
 const editPopupSelector = ".popup_type_edit-profile";
 
@@ -65,8 +65,11 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     profileInfo.setUserInfo({
       userName: userInfo.name,
       userJob: userInfo.about,
-      userAvatar: userInfo.avatar
+      userAvatar: userInfo.avatar,
     });
+
+    
+    
     
     const cardList = new Section(
       {
@@ -126,7 +129,11 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       },
       ".element"
     );
+
     cardList.renderer();
+
+
+
     const addPopup = new PopupWithForm({
       popupSelector: addPopupSelector,
       formSubmit: (data) => {
@@ -198,11 +205,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     });
 
 
-    const inputNameSelector = document.querySelector(".popup__user-input_type_name")
-    const inputAboutSelector = document.querySelector(".popup__user-input_type_about")
-
-    inputNameSelector.placeholder = typeName.textContent
-    inputAboutSelector.placeholder = typeJob.textContent
+   
 
     const editPopup = new PopupWithForm({
       popupSelector: editPopupSelector,
@@ -222,10 +225,6 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
               userAvatar: userInfo.avatar
             });
           })
-          .then(()=> {
-            inputNameSelector.placeholder = typeName.textContent
-            inputAboutSelector.placeholder= typeJob.textContent
-          })
           .then(() => {
             handleLoading("isNotLoading", saveEditButton)
           })
@@ -235,7 +234,8 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       }, buttonSelector: ".popup__save"
     });
     editPopup.setEventListeners();
-    const imagePopup = new PopupWithImage(".popup_type_image");
+
+    const imagePopup = new PopupWithImage(".popup_type_image", ".popup__figimg" ,".popup__figcap");
     imagePopup.setEventListeners();
 
     const defaultConfig = {

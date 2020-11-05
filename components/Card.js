@@ -29,26 +29,16 @@ class Card {
       .querySelector(this._templateSelector)
       .content.querySelector(".element__card").cloneNode(true);
 
+    const hideButton = cardTemplate.querySelector(".element__card-remove");
+
     if (this._owner !== this._currentUserId) {
-      cardTemplate.children[0].classList.add("element__card-hidden");
+      
+      hideButton.classList.add("element__card-hidden");
     } else {
-      cardTemplate.children[0].classList.remove("element__card-hidden");
+      hideButton.classList.remove("element__card-hidden");
     }
   
-    console.log()
     return cardTemplate;
-  }
-
-  _handleLikeIcon(e) {
-    e.target.classList.toggle("element__card-heart_active");
-  }
-
-  likedStatus = (e) =>{
-    if( e.target.classList.contains("element__card-heart_active")){
-      return true
-    } else {
-      return false
-    }
   }
 
   updateLiked= (num) => {
