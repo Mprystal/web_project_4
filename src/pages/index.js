@@ -80,7 +80,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
           
           const card = new Card(
             {
-              data,
+              data:data,
               handleCardClick: () => {
                 imagePopup.open(data.link, data.name);
               },
