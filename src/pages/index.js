@@ -71,62 +71,63 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       })
     }})
 
+    function createCard(cardData) {
+      const card = new Card({
+        data: cardData,
+        handleCardClick: () => { 
+              imagePopup.open(cardData.link, cardData.name); 
+         }, 
+           handleRemovingCard: (cardId) => {
+            deletePopup.open();
+            deletePopup.setSubmitAction(() => api.removeCard(cardId).then(() => {
+             card.remove();
+              deletePopup.close();
+            })
+              .catch((err) => {
+                console.log("error", err);
+              }))
+            },
+              handleLikes: (cardId) => {
+                if( card.cardLikeButton.classList.contains("element__card-heart_active")){
+                      api
+                      .changeLikeCardStatus(cardId, true).then((cardData)=>{
+                        card.updateLiked(cardData.likes.length);
+                      })
+                      .then(() => {
+                        card.cardLikeButton.classList.remove("element__card-heart_active")
+                      })
+                      .catch((err) => {
+                        console.log("error", err);
+                      });
+                      
+                    } else {
+                      api
+                      .changeLikeCardStatus(cardId, false).then((cardData)=>{
+                        card.updateLiked(cardData.likes.length);
+                      })
+                      .then(() => {
+                        card.cardLikeButton.classList.add("element__card-heart_active")
+                      })
+                      .catch((err) => {
+                        console.log("error", err);
+                      });
+                    }
+              },
+              currentUserId: userId,
+              },
+                ".element__card-template"
+              );
+      return card;
+    }
+
     
     
     const cardList = new Section(
       {
         items: cardListData,
         renderer: (data) => {
-          
-          const card = new Card(
-            {
-              data:data,
-              handleCardClick: () => {
-                imagePopup.open(data.link, data.name);
-              },
-              handleRemovingCard: (cardId) => {
-                deletePopup.open();
-                deletePopup.setSubmitAction(() => api.removeCard(cardId).then(() => {
-                  card.remove();
-                  deletePopup.close();
-                })
-                .catch((err) => {
-                  console.log("error", err);
-                }))
-              },
-              handleLikes: (cardId) => {
-                
-                if( card.cardLikeButton.classList.contains("element__card-heart_active")){
-                  api
-                  .changeLikeCardStatus(cardId, true).then((data)=>{
-                    card.updateLiked(data.likes.length);
-                  })
-                  .then(() => {
-                    card.cardLikeButton.classList.remove("element__card-heart_active")
-                  })
-                  .catch((err) => {
-                    console.log("error", err);
-                  });
-                  
-                } else {
-                  api
-                  .changeLikeCardStatus(cardId, false).then((data)=>{
-                    card.updateLiked(data.likes.length);
-                  })
-                  .then(() => {
-                    card.cardLikeButton.classList.add("element__card-heart_active")
-                  })
-                  .catch((err) => {
-                    console.log("error", err);
-                  });
-                }
-                
-              },
-              currentUserId: userId,
-            },
-            ".element__card-template"
-          );
-
+          const card = createCard(data);
+         
           cardList.appendItem(card.generateCard());
         },
       },
@@ -142,56 +143,9 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       formSubmit: (data) => {
         handleLoading("isLoading", saveAddButton);
         api.addCard(data).then((addCardData) => {
-          const newCard = new Card(
-            {
-              data: addCardData,
-              handleCardClick: () => {
-                imagePopup.open(data.link, data.name);
-              },
-              handleRemovingCard: (cardId) => {
-                deletePopup.open();
-                deletePopup.setSubmitAction(() => api.removeCard(cardId).then(() => {
-                  newCard.remove();
-                  deletePopup.close();
-                })
-                .catch((err) => {
-                  console.log("error", err);
-                }))
-                
-              },handleLikes: (cardId) => {
-                
-                if( newCard.cardLikeButton.classList.contains("element__card-heart_active")){
-                  api
-                  .changeLikeCardStatus(cardId, true).then((data)=>{
-                    newCard.updateLiked(data.likes.length);
-                  })
-                  .then(() => {
-                    newCard.cardLikeButton.classList.remove("element__card-heart_active")
-                  })
-                  .catch((err) => {
-                    console.log("error", err);
-                  });
-                  
-                } else {
-                  api
-                  .changeLikeCardStatus(cardId, false).then((data)=>{
-                    newCard.updateLiked(data.likes.length);
-                  })
-                  .then(() => {
-                    newCard.cardLikeButton.classList.add("element__card-heart_active")
-                  })
-                  .catch((err) => {
-                    console.log("error", err);
-                  });
-                }
-                
-              },
-              currentUserId: userId,
-            },
-            ".element__card-template"
-          );
+          const card = createCard(addCardData);
 
-          cardList.prependItem(newCard.generateCard());
+          cardList.prependItem(card.generateCard());
         })
         .then(() => {
           handleLoading("isNotLoading", saveAddButton)
