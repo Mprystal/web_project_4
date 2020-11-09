@@ -12,8 +12,7 @@ class UserInfo {
     return {
       userName: this._name.textContent,
       userJob: this._job.textContent,
-      userAvatar: this._avatar.style.backgroundImage,
-        //  : this.inputAboutSelector.value
+      userAvatar: this._avatar.style.backgroundImage
     };
   }
 

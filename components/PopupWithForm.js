@@ -17,6 +17,14 @@ class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  setDelete(cardDelete){
+    this._delete = cardDelete;
+  }
+
+  runDelete(){
+    this._delete()
+  }
+
   setSubmitAction(action) {
     this._formSubmit = action;
   }
@@ -26,7 +34,6 @@ class PopupWithForm extends Popup {
       e.preventDefault();
   
       this._formSubmit(this._getInputValues());
-      this.close();
     });
 
   

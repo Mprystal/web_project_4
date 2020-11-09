@@ -38,16 +38,10 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
     const profileImgSelector = ".popup_type_profile-img";
     const removeCardSelector = ".popup_type_delete-card";
     const saveAddButton = document.querySelector(".popup__save-add");
-    const saveEditButton = document.querySelector(".popup_save-edit")
-    const saveProfilePicButton = document.querySelector(".popup_save-profile-pic")
+    const saveEditButton = document.querySelector(".popup_save-edit");
+    const saveProfilePicButton = document.querySelector(".popup_save-profile-pic");
+    const userId = userInfo._id;
 
-    const deletePopup = new PopupWithForm({
-      popupSelector: removeCardSelector,
-      formSubmit: ()=> {
-       
-     
-      }
-    })
 
     const handleLoading = (loading, popupSelector) => {
   
@@ -68,7 +62,15 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       userAvatar: userInfo.avatar,
     });
 
-    
+    const deletePopup = new PopupWithForm({
+      popupSelector: removeCardSelector,
+      formSubmit: ()=> {
+        api.removeCard(cardId).then(() => {
+        deletePopup.runDelete()
+     
+      })
+    }})
+
     
     
     const cardList = new Section(
@@ -86,6 +88,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                 deletePopup.open();
                 deletePopup.setSubmitAction(() => api.removeCard(cardId).then(() => {
                   card.remove();
+                  deletePopup.close();
                 })
                 .catch((err) => {
                   console.log("error", err);
@@ -119,7 +122,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                 }
                 
               },
-              currentUserId: "7fb54333084f7cc9cdc452a8",
+              currentUserId: userId,
             },
             ".element__card-template"
           );
@@ -139,7 +142,7 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
       formSubmit: (data) => {
         handleLoading("isLoading", saveAddButton);
         api.addCard(data).then((addCardData) => {
-          const card = new Card(
+          const newCard = new Card(
             {
               data: addCardData,
               handleCardClick: () => {
@@ -148,7 +151,8 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
               handleRemovingCard: (cardId) => {
                 deletePopup.open();
                 deletePopup.setSubmitAction(() => api.removeCard(cardId).then(() => {
-                  card.remove();
+                  newCard.remove();
+                  deletePopup.close();
                 })
                 .catch((err) => {
                   console.log("error", err);
@@ -156,13 +160,13 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                 
               },handleLikes: (cardId) => {
                 
-                if( card.cardLikeButton.classList.contains("element__card-heart_active")){
+                if( newCard.cardLikeButton.classList.contains("element__card-heart_active")){
                   api
                   .changeLikeCardStatus(cardId, true).then((data)=>{
-                    card.updateLiked(data.likes.length);
+                    newCard.updateLiked(data.likes.length);
                   })
                   .then(() => {
-                    card.cardLikeButton.classList.remove("element__card-heart_active")
+                    newCard.cardLikeButton.classList.remove("element__card-heart_active")
                   })
                   .catch((err) => {
                     console.log("error", err);
@@ -171,10 +175,10 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                 } else {
                   api
                   .changeLikeCardStatus(cardId, false).then((data)=>{
-                    card.updateLiked(data.likes.length);
+                    newCard.updateLiked(data.likes.length);
                   })
                   .then(() => {
-                    card.cardLikeButton.classList.add("element__card-heart_active")
+                    newCard.cardLikeButton.classList.add("element__card-heart_active")
                   })
                   .catch((err) => {
                     console.log("error", err);
@@ -182,15 +186,18 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
                 }
                 
               },
-              currentUserId: "7fb54333084f7cc9cdc452a8",
+              currentUserId: userId,
             },
             ".element__card-template"
           );
 
-          cardList.prependItem(card.generateCard());
+          cardList.prependItem(newCard.generateCard());
         })
         .then(() => {
           handleLoading("isNotLoading", saveAddButton)
+        })
+        .then(()=>{
+          addPopup.close();
         });
       }, buttonSelector: ".popup__save"
     });
@@ -227,6 +234,8 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
           })
           .then(() => {
             handleLoading("isNotLoading", saveEditButton)
+          }).then(()=>{
+            editPopup.close();
           })
           .catch((err) => {
             console.log("error", err);
@@ -266,8 +275,15 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
 
     const editButton = document.querySelector(".profile__edit-button");
 
+    const inputNameSelector = document.querySelector(".popup__user-input_type_name") 
+    const inputAboutSelector = document.querySelector(".popup__user-input_type_about") 
+
     editButton.addEventListener("click", () => {
+      const formData = profileInfo.getUserInfo()
+      inputNameSelector.value = formData.userName
+      inputAboutSelector.value= formData.userJob
       editPopup.open();
+      
     });
 
     const profileImgButton = document.querySelector(".profile__img-form");
@@ -285,6 +301,8 @@ Promise.all([api.getUserInfo(), api.getCardList()]).then(
           profileAvatar.style.backgroundPosition = "center";
         }).then(() => {
           handleLoading("isNotLoading", saveProfilePicButton)
+        }).then(()=>{
+          profileImgPopup.close();
         })
         .catch((err) => {
           console.log("error", err);
